@@ -1,14 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import { Award, Crown, LogOut, Shield } from "lucide-react";
 import { MobileShell } from "@/components/layout/mobile-shell";
 import { StateBanners } from "@/components/states/status-banners";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button"
-import { LinkButton } from "@/components/ui/link-button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,45 +21,43 @@ import {
   CertificationUploadModal,
   MembershipModal,
 } from "@/components/overlays/job-overlays";
-import { currentPoster, currentTeam, formatDate } from "@/lib/data";
+import { formatDate } from "@/lib/data";
 import { useAsyncData } from "@/hooks/use-async-data";
 import { useScreenState } from "@/providers/screen-state-provider";
+import { useAuth } from "@/providers/auth-provider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
+  const router = useRouter();
+  const { user, role, logout, ready } = useAuth();
   const { setState } = useScreenState();
-  const [role, setRole] = useState<"poster" | "team">("poster");
-  const user = role === "poster" ? currentPoster : currentTeam;
-  const { data, state } = useAsyncData(() => user, [role]);
+  const { data, state } = useAsyncData(() => user, [user?.id, ready]);
   const [membershipOpen, setMembershipOpen] = useState(false);
   const [certOpen, setCertOpen] = useState(false);
+
+  if (!ready || !user || !role) {
+    return (
+      <div className="mx-auto max-w-md space-y-3 p-4">
+        <Skeleton className="h-20 w-full rounded-lg" />
+        <Skeleton className="h-40 w-full rounded-lg" />
+      </div>
+    );
+  }
 
   return (
     <MobileShell role={role} user={user}>
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="space-y-1">
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">
             Profile & account
           </h1>
-          <div className="flex gap-1">
-            <Button
-              size="sm"
-              variant={role === "poster" ? "default" : "outline"}
-              className="rounded-md"
-              onClick={() => setRole("poster")}
-            >
-              Poster
-            </Button>
-            <Button
-              size="sm"
-              variant={role === "team" ? "default" : "outline"}
-              className="rounded-md"
-              onClick={() => setRole("team")}
-            >
-              Team
-            </Button>
-          </div>
+          <p className="text-sm text-muted-foreground">
+            Role:{" "}
+            <span className="font-medium text-foreground">
+              {role === "team" ? "Clean Up Team" : "Job Poster"}
+            </span>
+          </p>
         </div>
 
         <StateBanners
@@ -96,6 +93,9 @@ export default function ProfilePage() {
                       </Badge>
                       <Badge variant="outline" className="rounded-md">
                         ★ {data.rating}
+                      </Badge>
+                      <Badge variant="outline" className="rounded-md capitalize">
+                        {data.role}
                       </Badge>
                     </div>
                   </div>
@@ -224,8 +224,17 @@ export default function ProfilePage() {
                 </CardContent>
               </Card>
 
-              <LinkButton variant="ghost" className="w-full rounded-md" href="/"><LogOut className="size-4" />
-                  Sign out</LinkButton>
+              <Button
+                variant="ghost"
+                className="w-full rounded-md"
+                onClick={() => {
+                  logout();
+                  router.push("/");
+                }}
+              >
+                <LogOut className="size-4" />
+                Sign out
+              </Button>
             </aside>
           </div>
         ) : null}

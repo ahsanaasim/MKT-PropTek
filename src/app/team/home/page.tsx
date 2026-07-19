@@ -24,12 +24,14 @@ import {
   SearchFilterDrawer,
   SubmitBidModal,
 } from "@/components/overlays/job-overlays";
-import { currentTeam, jobs } from "@/lib/data";
+import { jobs } from "@/lib/data";
 import { useAsyncData } from "@/hooks/use-async-data";
 import { useScreenState } from "@/providers/screen-state-provider";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 import type { Job } from "@/lib/types";
 
 export default function TeamHomePage() {
+  const { user } = useAuthedUser("team");
   const { setState } = useScreenState();
   const [status, setStatus] = useState("");
   const [query, setQuery] = useState("");
@@ -66,7 +68,7 @@ export default function TeamHomePage() {
   return (
     <MobileShell
       role="team"
-      user={currentTeam}
+      user={user}
       onNotifications={() => setNotifOpen(true)}
     >
       <div className="space-y-4">

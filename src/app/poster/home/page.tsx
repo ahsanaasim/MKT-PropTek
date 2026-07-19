@@ -19,8 +19,10 @@ import {
 import { currentPoster, jobs } from "@/lib/data";
 import { useAsyncData } from "@/hooks/use-async-data";
 import { useScreenState } from "@/providers/screen-state-provider";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 
 export default function PosterHomePage() {
+  const { user } = useAuthedUser("poster");
   const { setState } = useScreenState();
   const [status, setStatus] = useState("");
   const [query, setQuery] = useState("");
@@ -51,7 +53,7 @@ export default function PosterHomePage() {
   return (
     <MobileShell
       role="poster"
-      user={currentPoster}
+      user={user}
       onNotifications={() => setNotifOpen(true)}
     >
       <div className="space-y-4">

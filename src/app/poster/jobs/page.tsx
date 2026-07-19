@@ -1,13 +1,15 @@
 "use client";
 
 import { JobListScreen } from "@/components/jobs/job-list-screen";
-import { currentPoster, jobs } from "@/lib/data";
+import { jobs } from "@/lib/data";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 
 export default function PosterJobsPage() {
+  const { user } = useAuthedUser("poster");
   return (
     <JobListScreen
       role="poster"
-      user={currentPoster}
+      user={user}
       title="Your jobs"
       loader={() => jobs.filter((j) => j.posterId === "u-poster-1")}
       detailBase="/poster/job"

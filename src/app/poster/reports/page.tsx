@@ -24,9 +24,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
-import { currentPoster, reportSeries } from "@/lib/data";
+import { reportSeries } from "@/lib/data";
 import { useAsyncData } from "@/hooks/use-async-data";
 import { useScreenState } from "@/providers/screen-state-provider";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 import { toast } from "sonner";
 
 function MiniBars({
@@ -56,6 +57,7 @@ function MiniBars({
 }
 
 export default function ReportsPage() {
+  const { user } = useAuthedUser("poster");
   const { setState } = useScreenState();
   const [range, setRange] = useState("90d");
   const { data, state } = useAsyncData(() => reportSeries, []);
@@ -83,7 +85,7 @@ export default function ReportsPage() {
   }, [data]);
 
   return (
-    <MobileShell role="poster" user={currentPoster}>
+    <MobileShell role="poster" user={user}>
       <div className="space-y-4">
         <div className="flex items-start justify-between gap-2">
           <div>

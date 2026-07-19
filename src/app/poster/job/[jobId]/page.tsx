@@ -2,7 +2,7 @@
 
 import { use } from "react";
 import { JobDetailScreen } from "@/components/jobs/job-detail-screen";
-import { currentPoster } from "@/lib/data";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 
 export default function PosterJobDetailPage({
   params,
@@ -10,5 +10,6 @@ export default function PosterJobDetailPage({
   params: Promise<{ jobId: string }>;
 }) {
   const { jobId } = use(params);
-  return <JobDetailScreen jobId={jobId} role="poster" user={currentPoster} />;
+  const { user } = useAuthedUser("poster");
+  return <JobDetailScreen jobId={jobId} role="poster" user={user} />;
 }

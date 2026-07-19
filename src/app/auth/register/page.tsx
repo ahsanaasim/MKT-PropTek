@@ -13,16 +13,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { StateBanners } from "@/components/states/status-banners";
 import { useScreenState } from "@/providers/screen-state-provider";
+import { useAuth } from "@/providers/auth-provider";
+import { homeForRole } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import type { UserRole } from "@/lib/types";
 
 function RegisterForm() {
   const router = useRouter();
   const params = useSearchParams();
+  const { register } = useAuth();
   const { state } = useScreenState();
   const [role, setRole] = useState<UserRole>(
     params.get("role") === "team" ? "team" : "poster",
   );
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +40,15 @@ function RegisterForm() {
     setLoading(true);
     await new Promise((r) => setTimeout(r, 900));
     setLoading(false);
-    router.push(role === "team" ? "/team/home" : "/poster/home");
+    const session = register({
+      name: name || (role === "team" ? "New Cleanup Team" : "New Job Poster"),
+      email: email || `new@proptek.app`,
+      role,
+      company: company || undefined,
+      phone: phone || "(555) 000-0000",
+      location: location || "San Francisco, CA",
+    });
+    router.push(homeForRole(session.role));
   }
 
   return (
@@ -78,11 +94,24 @@ function RegisterForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" required className="h-11 rounded-md" />
+            <Input
+              id="name"
+              required
+              className="h-11 rounded-md"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" required className="h-11 rounded-md" />
+            <Input
+              id="email"
+              type="email"
+              required
+              className="h-11 rounded-md"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
@@ -95,11 +124,23 @@ function RegisterForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="company">Company (optional)</Label>
-            <Input id="company" className="h-11 rounded-md" />
+            <Input
+              id="company"
+              className="h-11 rounded-md"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="phone">Phone</Label>
-            <Input id="phone" type="tel" required className="h-11 rounded-md" />
+            <Input
+              id="phone"
+              type="tel"
+              required
+              className="h-11 rounded-md"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="location">Location</Label>
@@ -108,6 +149,8 @@ function RegisterForm() {
               required
               placeholder="San Francisco, CA"
               className="h-11 rounded-md"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
           <label className="flex items-start gap-2 text-sm">

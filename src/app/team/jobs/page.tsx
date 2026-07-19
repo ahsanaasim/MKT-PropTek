@@ -1,13 +1,15 @@
 "use client";
 
 import { JobListScreen } from "@/components/jobs/job-list-screen";
-import { currentTeam, jobs } from "@/lib/data";
+import { jobs } from "@/lib/data";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 
 export default function TeamJobsPage() {
+  const { user } = useAuthedUser("team");
   return (
     <JobListScreen
       role="team"
-      user={currentTeam}
+      user={user}
       title="Available jobs"
       loader={() =>
         jobs.filter((j) => ["open", "bidding"].includes(j.status) || !j.teamId)
