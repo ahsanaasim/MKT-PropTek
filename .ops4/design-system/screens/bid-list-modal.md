@@ -1,0 +1,22 @@
+# Screen blueprint: Bid List Modal
+
+Purpose: View all bids for a job, compare price, timing, and notes.
+Layout: **single-column-form**
+
+## Required regions
+- **header**: Displays job summary and context for which bids are being viewed. — components: JobSummaryCard, CloseModalButton
+- **filters**: Allows sorting and filtering of bids for easier comparison. — components: SortDropdown, FilterByTeamRating, FilterByBidAmount, FilterByTiming
+- **main**: Displays the list of bids with key details and actions. — components: BidCardList, EmptyState, LoadingSpinner, ErrorBanner
+
+## Forbidden collapses
+- Do not implement this screen as a single Card containing only a basic form.
+- Do not omit the context-rail when related entities or history exist in the product.
+
+## ASCII wireframe
+```
+| main | context-rail |
+```
+
+## Acceptance
+- All required regions are present in the implemented UI.
+- Control types match the components listed (no downgrading to simpler widgets).
