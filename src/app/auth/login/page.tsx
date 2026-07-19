@@ -10,35 +10,34 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { StateBanners } from "@/components/states/status-banners";
+import {
+  PermissionDeniedBanner,
+  PlanLimitBanner,
+} from "@/components/states/status-banners";
 import { useScreenState } from "@/providers/screen-state-provider";
 
 function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
   const role = params.get("role") === "team" ? "team" : "poster";
-  const { state } = useScreenState();
+  const { state, setState } = useScreenState();
   const [email, setEmail] = useState(
     role === "team" ? "hello@coastalclean.co" : "ava@meridianprops.com",
   );
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("demo");
   const [show, setShow] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [localError, setLocalError] = useState(false);
 
-  const effective = state === "ready" && localError ? "error" : state;
-  const loading = submitting || effective === "loading";
+  const loading = submitting || state === "loading";
+  const showLoginError = state === "error";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLocalError(false);
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 600));
     setSubmitting(false);
-    if (!password) {
-      setLocalError(true);
-      return;
-    }
+    // Demo auth: any email works. Clear preview state and continue.
+    setState("ready");
     router.push(role === "team" ? "/team/home" : "/poster/home");
   }
 
@@ -56,16 +55,18 @@ function LoginForm() {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <StateBanners
-          state={effective}
-          onRetry={() => setLocalError(false)}
-          onUpgrade={() => router.push("/profile")}
-        />
-        {effective === "error" || localError ? (
-          <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">
+        {showLoginError ? (
+          <div
+            role="alert"
+            className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive"
+          >
             Invalid email or password. Try again.
           </div>
         ) : null}
+        {state === "plan_limit" ? (
+          <PlanLimitBanner onUpgrade={() => router.push("/profile")} />
+        ) : null}
+        {state === "permission_denied" ? <PermissionDeniedBanner /> : null}
         <form className="space-y-4" onSubmit={onSubmit}>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
