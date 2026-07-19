@@ -1,9 +1,10 @@
 # Screen blueprint: Bid Reject Modal
 
+Purpose: Reject a bid with optional feedback.
 Layout: **two-column-main-rail**
 
 ## Required regions
-- **main**: Primary workflow for this screen — components: PageHeader, PrimaryContent
+- **main**: Reject a bid with optional feedback. — components: PageHeader, PrimaryContent
 - **context-rail**: Related context, history, or secondary actions — components: RelatedInfo, ActivityOrMeta
 
 ## Forbidden collapses
