@@ -1,17 +1,17 @@
-# Sidebar list-table with filter bar
+# Sidebar + header + filterable table with pagination
 
 Screen type: list_table
-Primary task: Browse, filter, and manage a list of entities (e.g., events, users, transactions).
+Primary task: Scan, filter, and manage a list of users or entities with row-level actions
 
-### Pattern 1: Sidebar list-table with filter bar
+### Pattern 1: Sidebar + header + filterable table with pagination
 - Screen type: list_table
-- Primary task: Browse, filter, and manage a list of entities (e.g., events, users, transactions).
+- Primary task: Scan, filter, and manage a list of users or entities with row-level actions
 - Composition archetype: sidebar-header-content
-- Reading flow: page-header → filter-bar → main-table
+- Reading flow: sidebar-navigation → page-header → filter-bar → main-table → pagination-controls
 - Density: comfortable
 - Symmetry: asymmetric
 - Primary focal point: main-table
-- Secondary focal points: filter-bar, add-new-action
+- Secondary focal points: page-header, filter-bar
 - Spacing rhythm: page 32 / section 32 / card 16 / base 4
 - Typography:
   - Page title: 28px / weight 600 / lh 34
@@ -25,6 +25,8 @@ Primary task: Browse, filter, and manage a list of entities (e.g., events, users
   - text-primary: #0F172A (titles / body)
   - text-muted: #64748B (meta / secondary)
   - accent: #2563EB (primary actions)
+  - success: #22C55E (active status)
+  - danger: #EF4444 (inactive status)
 - Fonts:
   - Inter · ui · weights 400, 500, 600
 - Radii:
@@ -33,10 +35,10 @@ Primary task: Browse, filter, and manage a list of entities (e.g., events, users
   - sm: 4px
   - pill: 999px
 - Components: summary-metric (secondary)
-- Interactions: row-hover-actions, filter-bar, pagination
-- Why it works: Sidebar and header separation supports multitasking and orientation. Filter and action bar above the table enables rapid data refinement. Table-first layout prioritizes scannability and bulk management.
-- Avoid when: Mobile-only experiences.; Highly visual or card-based content.; Dense inline editing requirements.
-- Summary: A desktop list-table pattern with sidebar navigation, filter/action bar, and a dense, scannable table for managing entities. Primary task is browsing, filtering, and acting on large datasets. The sidebar-header-content composition supports multitasking and quick navigation, with clear hierarchy via scale, contrast, and whitespace. Suitable for operational dashboards and admin panels; avoid for mobile-first or highly visual content.
+- Interactions: row-hover-actions, filter-dropdowns, pagination
+- Why it works: Sidebar-header-content composition supports multitasking and persistent navigation. Filter bar above table enables quick segmentation and search. Table with clear row actions and status badges improves operational efficiency.
+- Avoid when: Mobile-first or single-column layouts; Highly visual or card-based content; Complex inline editing requirements
+- Summary: A desktop list_table pattern for user or entity management, featuring a sidebar for navigation, a prominent page header, filter/search controls, and a paginated table with row-level actions. The composition supports comfortable density, clear hierarchy, and operational efficiency for B2B SaaS admin tasks. Best for moderate to large datasets where filtering and quick actions are needed; avoid for mobile-first or highly visual content.
 
 ## Application rules
 - Apply this composition to matching product screens in the current change (auth/register/login/landing as relevant).
