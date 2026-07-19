@@ -1,9 +1,10 @@
 # Screen blueprint: Bid Approve Modal
 
+Purpose: Approve a bid and assign job to team.
 Layout: **two-column-main-rail**
 
 ## Required regions
-- **main**: Primary workflow for this screen — components: PageHeader, PrimaryContent
+- **main**: Approve a bid and assign job to team. — components: PageHeader, PrimaryContent
 - **context-rail**: Related context, history, or secondary actions — components: RelatedInfo, ActivityOrMeta
 
 ## Forbidden collapses
