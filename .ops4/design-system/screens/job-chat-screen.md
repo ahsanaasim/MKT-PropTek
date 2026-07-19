@@ -1,9 +1,11 @@
 # Screen blueprint: Job Chat Screen
 
+Route: `/poster/job/:jobId/chat`
+Purpose: Real-time chat with team, supports group chat and editing.
 Layout: **two-column-main-rail**
 
 ## Required regions
-- **main**: Primary workflow for this screen — components: PageHeader, PrimaryContent
+- **main**: Real-time chat with team, supports group chat and editing. — components: PageHeader, PrimaryContent
 - **context-rail**: Related context, history, or secondary actions — components: RelatedInfo, ActivityOrMeta
 
 ## Forbidden collapses
