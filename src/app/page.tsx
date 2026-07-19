@@ -136,11 +136,67 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-5 grid gap-2">
-            <LinkButton size="lg" className="h-12 rounded-md text-base" href="/auth/login?role=poster">Post a Job
-                <ArrowRight className="size-4" /></LinkButton>
-            <LinkButton size="lg"
+            <LinkButton size="lg" className="h-12 rounded-md text-base" href="/auth/login?role=poster">
+              Post a Job
+              <ArrowRight className="size-4" />
+            </LinkButton>
+            <LinkButton
+              size="lg"
               variant="outline"
-              className="h-12 rounded-md text-base" href="/auth/login?role=team">Find Cleanup Jobs</LinkButton>
+              className="h-12 rounded-md text-base"
+              href="/auth/login?role=team"
+            >
+              Find Cleanup Jobs
+            </LinkButton>
+            <p className="text-center text-xs text-muted-foreground">
+              Choose your path — we open the matching login and send you to that role&apos;s home.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Role access — prominent per-user-type entry */}
+      <section className="px-4 py-8">
+        <div className="mx-auto max-w-md space-y-4">
+          <h2 className="font-[family-name:var(--font-display)] text-2xl font-semibold">
+            Built for two roles
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            After you sign in, PropTek only unlocks the screens your role is allowed to use.
+          </p>
+          <div className="grid gap-3">
+            <article className="rounded-lg border bg-white p-4 shadow-sm">
+              <p className="text-xs font-semibold tracking-wide text-primary uppercase">
+                Job Poster
+              </p>
+              <h3 className="mt-1 font-[family-name:var(--font-display)] text-lg font-semibold">
+                Post, award, approve & pay
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Access poster home, job wizard, bids, reports, and payment release — not team bidding tools.
+              </p>
+              <LinkButton className="mt-3 w-full rounded-md" href="/auth/login?role=poster">
+                Continue as poster
+              </LinkButton>
+            </article>
+            <article className="rounded-lg border bg-white p-4 shadow-sm">
+              <p className="text-xs font-semibold tracking-wide text-primary uppercase">
+                Clean Up Team
+              </p>
+              <h3 className="mt-1 font-[family-name:var(--font-display)] text-lg font-semibold">
+                Browse, bid & deliver proof
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Access available jobs, bidding, completion uploads, and team history — not poster reports.
+              </p>
+              <LinkButton
+                variant="outline"
+                className="mt-3 w-full rounded-md"
+                href="/auth/login?role=team"
+              >
+                Continue as team
+              </LinkButton>
+            </article>
           </div>
         </div>
       </section>
@@ -286,7 +342,16 @@ export default function LandingPage() {
       {/* Sticky CTA bar */}
       <div className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-white/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-md gap-2">
-          <LinkButton className="h-11 flex-1 rounded-md" href="/auth/login">Get started</LinkButton>
+          <LinkButton className="h-11 flex-1 rounded-md" href="/auth/login?role=poster">
+            Post a Job
+          </LinkButton>
+          <LinkButton
+            variant="outline"
+            className="h-11 flex-1 rounded-md"
+            href="/auth/login?role=team"
+          >
+            Find jobs
+          </LinkButton>
         </div>
       </div>
       <div className="h-20" />

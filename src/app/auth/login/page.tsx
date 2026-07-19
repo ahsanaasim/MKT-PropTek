@@ -15,12 +15,19 @@ import {
   PlanLimitBanner,
 } from "@/components/states/status-banners";
 import { useScreenState } from "@/providers/screen-state-provider";
+import { useAuth } from "@/providers/auth-provider";
+import { homeForRole } from "@/lib/auth";
+import { cn } from "@/lib/utils";
+import type { UserRole } from "@/lib/types";
 
 function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const role = params.get("role") === "team" ? "team" : "poster";
+  const { login } = useAuth();
   const { state, setState } = useScreenState();
+  const [role, setRole] = useState<UserRole>(
+    params.get("role") === "team" ? "team" : "poster",
+  );
   const [email, setEmail] = useState(
     role === "team" ? "hello@coastalclean.co" : "ava@meridianprops.com",
   );
@@ -30,15 +37,27 @@ function LoginForm() {
 
   const loading = submitting || state === "loading";
   const showLoginError = state === "error";
+  const next = params.get("next");
+
+  function selectRole(nextRole: UserRole) {
+    setRole(nextRole);
+    setEmail(
+      nextRole === "team" ? "hello@coastalclean.co" : "ava@meridianprops.com",
+    );
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
     await new Promise((r) => setTimeout(r, 600));
     setSubmitting(false);
-    // Demo auth: any email works. Clear preview state and continue.
     setState("ready");
-    router.push(role === "team" ? "/team/home" : "/poster/home");
+    const session = login({ email, role });
+    const dest =
+      next && next.startsWith("/") && !next.startsWith("//")
+        ? next
+        : homeForRole(session.role);
+    router.push(dest);
   }
 
   return (
@@ -50,7 +69,7 @@ function LoginForm() {
             Welcome back
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Sign in to your PropTek marketplace account.
+            Sign in once — we route you to your role home.
           </p>
         </div>
       </CardHeader>
@@ -68,6 +87,31 @@ function LoginForm() {
         ) : null}
         {state === "permission_denied" ? <PermissionDeniedBanner /> : null}
         <form className="space-y-4" onSubmit={onSubmit}>
+          <div className="space-y-2">
+            <Label>Continue as</Label>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  { id: "poster", label: "Job Poster" },
+                  { id: "team", label: "Clean Up Team" },
+                ] as const
+              ).map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => selectRole(opt.id)}
+                  className={cn(
+                    "rounded-lg border px-3 py-3 text-sm font-medium transition-colors",
+                    role === opt.id
+                      ? "border-primary bg-accent text-foreground"
+                      : "border-border bg-white",
+                  )}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input

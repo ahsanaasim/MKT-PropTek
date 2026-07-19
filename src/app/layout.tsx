@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Josefin_Sans } from "next/font/google";
+import { AuthProvider } from "@/providers/auth-provider";
 import { ScreenStateProvider } from "@/providers/screen-state-provider";
 import { StatePreviewFab } from "@/components/layout/state-preview-fab";
 import { Toaster } from "@/components/ui/sonner";
@@ -42,11 +43,13 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-body)]">
-        <ScreenStateProvider>
-          {children}
-          <StatePreviewFab />
-          <Toaster />
-        </ScreenStateProvider>
+        <AuthProvider>
+          <ScreenStateProvider>
+            {children}
+            <StatePreviewFab />
+            <Toaster />
+          </ScreenStateProvider>
+        </AuthProvider>
       </body>
     </html>
   );

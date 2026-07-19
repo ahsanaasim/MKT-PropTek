@@ -2,7 +2,7 @@
 
 import { use } from "react";
 import { JobChatScreen } from "@/components/jobs/job-chat-screen";
-import { currentTeam } from "@/lib/data";
+import { useAuthedUser } from "@/hooks/use-authed-user";
 
 export default function TeamChatPage({
   params,
@@ -10,5 +10,6 @@ export default function TeamChatPage({
   params: Promise<{ jobId: string }>;
 }) {
   const { jobId } = use(params);
-  return <JobChatScreen jobId={jobId} role="team" user={currentTeam} />;
+  const { user } = useAuthedUser("team");
+  return <JobChatScreen jobId={jobId} role="team" user={user} />;
 }
