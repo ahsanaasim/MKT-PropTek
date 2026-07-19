@@ -2,14 +2,14 @@
 
 Retrieved composition patterns — REQUIRED for matching screen types (esp. auth/register/login). Apply structure/spacing/hierarchy; keep product brand tokens. Do not copy proprietary branding.
 
-- [Interactive 3D Configurator](./pattern-1-landing.md)
-- [Horizontal Scroll Journey](./pattern-2-landing.md)
+- [Horizontal Scroll Journey](./pattern-1-landing.md)
+- [Interactive 3D Configurator](./pattern-2-landing.md)
 - [Centered authentication card](./pattern-3-authentication.md)
 - [Centered authentication card](./pattern-4-authentication.md)
 - [multi-section entity creation form](./pattern-5-form.md)
 - [Date and Time Picker Inputs with Popover Selection](./pattern-6-form.md)
 - [Sidebar dashboard with summary metrics and tabular list](./pattern-7-list-table.md)
-- [Sidebar list-table with filter bar](./pattern-8-list-table.md)
+- [Sidebar + header + filterable table with pagination](./pattern-8-list-table.md)
 
 ## Design Pattern Brain (composition geometry only — keep locked product tokens)
 These patterns are approved visual-memory references.
@@ -17,26 +17,7 @@ Apply archetype, reading flow, density, hierarchy, spacing rhythm, and surface s
 KEEP this product's brand tokens (logo, primary brand color, locked Figma/product colors) — do not clone proprietary branding/copy from the reference product.
 If a retrieved pattern is a centered auth/register card and the current screen is a heavier multi-panel auth layout, RESHAPE the auth/register screen to match the pattern archetype.
 
-### Pattern 1: Interactive 3D Configurator
-- Screen type: landing
-- Primary task: Convert visitor / communicate value
-- Composition archetype: Interactive 3D Configurator
-- Reading flow: Hero (Configurator) → Feature Highlight (synced) → Price/Specs → Purchase
-- Density: spacious
-- Symmetry: symmetric
-- Primary focal point: Hero / primary CTA
-- Secondary focal points: Features, Social proof
-- Surfaces: canvas light marketing page; cards Neutral studio background. Product: Realistic materials. UI: Minimal overlay.; borders soft; shadows subtle
-- Components: hero (primary), primary_cta (primary), section (secondary)
-- Interactions: Inside Configurator UI + Sticky Bottom Bar, Real-time rendering, material swap animation, camera rotate/zoom, light reflection
-- Why it works: Increases ownership feeling. 360 view reduces return rates. Direct add-to-cart. Increases ownership feeling. 360 view reduces return rates. Direct add-to-cart.
-- Summary: Landing pattern: Interactive 3D Configurator
-3d, configurator, customizer, interactive, product, interactive product demo
-1. Hero (Configurator), 2. Feature Highlight (synced), 3. Price/Specs, 4. Purchase
-Inside Configurator UI + Sticky Bottom Bar
-Neutral studio background. Product: Realistic materials. UI: Minimal overlay.
-Increases ownership feeling. 360 view reduces return rates. Direct add-to-cart.
-### Pattern 2: Horizontal Scroll Journey
+### Pattern 1: Horizontal Scroll Journey
 - Screen type: landing
 - Primary task: Convert visitor / communicate value
 - Composition archetype: Horizontal Scroll Journey
@@ -55,6 +36,25 @@ horizontal, scroll, journey, gallery, storytelling, panoramic, storytelling-driv
 Floating Sticky CTA or End of Horizontal Track
 Continuous palette transition. Chapter colors. Progress bar #000000.
 Immersive product discovery. High engagement. Keep navigation visible.
+### Pattern 2: Interactive 3D Configurator
+- Screen type: landing
+- Primary task: Convert visitor / communicate value
+- Composition archetype: Interactive 3D Configurator
+- Reading flow: Hero (Configurator) → Feature Highlight (synced) → Price/Specs → Purchase
+- Density: spacious
+- Symmetry: symmetric
+- Primary focal point: Hero / primary CTA
+- Secondary focal points: Features, Social proof
+- Surfaces: canvas light marketing page; cards Neutral studio background. Product: Realistic materials. UI: Minimal overlay.; borders soft; shadows subtle
+- Components: hero (primary), primary_cta (primary), section (secondary)
+- Interactions: Inside Configurator UI + Sticky Bottom Bar, Real-time rendering, material swap animation, camera rotate/zoom, light reflection
+- Why it works: Increases ownership feeling. 360 view reduces return rates. Direct add-to-cart. Increases ownership feeling. 360 view reduces return rates. Direct add-to-cart.
+- Summary: Landing pattern: Interactive 3D Configurator
+3d, configurator, customizer, interactive, product, interactive product demo
+1. Hero (Configurator), 2. Feature Highlight (synced), 3. Price/Specs, 4. Purchase
+Inside Configurator UI + Sticky Bottom Bar
+Neutral studio background. Product: Realistic materials. UI: Minimal overlay.
+Increases ownership feeling. 360 view reduces return rates. Direct add-to-cart.
 ### Pattern 3: Centered authentication card
 - Screen type: authentication
 - Primary task: Authenticate with email and password to access the application
@@ -135,19 +135,19 @@ Immersive product discovery. High engagement. Keep navigation visible.
 - Why it works: Sidebar and header separation supports multitasking and persistent navigation. Summary metrics contextualize the table, aiding quick decision-making. Tabs and filters reduce page reloads and keep users in flow.
 - Avoid when: Mobile-first or single-task flows.; When data is too sparse for tabular presentation.
 - Summary: A sidebar dashboard pattern for desktop B2B SaaS, featuring summary metrics and a tabular list as the primary region. Users can filter, scan, and act on transactional records, with persistent navigation and at-a-glance KPIs. The composition uses a sidebar-header-content archetype, with clear visual hierarchy and comfortable density. Best for operational dashboards or admin panels; avoid for mobile-first or single-task flows.
-### Pattern 8: Sidebar list-table with filter bar
+### Pattern 8: Sidebar + header + filterable table with pagination
 - Screen type: list_table
-- Primary task: Browse, filter, and manage a list of entities (e.g., events, users, transactions).
+- Primary task: Scan, filter, and manage a list of users or entities with row-level actions
 - Composition archetype: sidebar-header-content
-- Reading flow: page-header → filter-bar → main-table
+- Reading flow: sidebar-navigation → page-header → filter-bar → main-table → pagination-controls
 - Density: comfortable
 - Symmetry: asymmetric
 - Primary focal point: main-table
-- Secondary focal points: filter-bar, add-new-action
+- Secondary focal points: page-header, filter-bar
 - Spacing rhythm: page 32 / section 32 / card 16 / base 4
 - Surfaces: canvas neutral; cards selective; borders subtle; shadows minimal
 - Components: summary-metric (secondary)
-- Interactions: row-hover-actions, filter-bar, pagination
-- Why it works: Sidebar and header separation supports multitasking and orientation. Filter and action bar above the table enables rapid data refinement. Table-first layout prioritizes scannability and bulk management.
-- Avoid when: Mobile-only experiences.; Highly visual or card-based content.; Dense inline editing requirements.
-- Summary: A desktop list-table pattern with sidebar navigation, filter/action bar, and a dense, scannable table for managing entities. Primary task is browsing, filtering, and acting on large datasets. The sidebar-header-content composition supports multitasking and quick navigation, with clear hierarchy via scale, contrast, and whitespace. Suitable for operational dashboards and admin panels; avoid for mobile-first or highly visual content.
+- Interactions: row-hover-actions, filter-dropdowns, pagination
+- Why it works: Sidebar-header-content composition supports multitasking and persistent navigation. Filter bar above table enables quick segmentation and search. Table with clear row actions and status badges improves operational efficiency.
+- Avoid when: Mobile-first or single-column layouts; Highly visual or card-based content; Complex inline editing requirements
+- Summary: A desktop list_table pattern for user or entity management, featuring a sidebar for navigation, a prominent page header, filter/search controls, and a paginated table with row-level actions. The composition supports comfortable density, clear hierarchy, and operational efficiency for B2B SaaS admin tasks. Best for moderate to large datasets where filtering and quick actions are needed; avoid for mobile-first or highly visual content.
