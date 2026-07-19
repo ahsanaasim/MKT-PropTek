@@ -5,7 +5,7 @@ Conflict priority is defined in `README.md` in this folder.
 
 ## Documents
 
-- [`01_design_system.md`](./01_design_system.md) — Design system (default)
+- [`01_design_system.md`](./01_design_system.md) — Design system (custom: design-intelligence-lock)
 - [`02_ux_principles.md`](./02_ux_principles.md) — UX principles (default)
 - [`03_screen_composition.md`](./03_screen_composition.md) — Screen composition (default)
 - [`04_form_patterns.md`](./04_form_patterns.md) — Form patterns (default)
